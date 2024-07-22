@@ -1,11 +1,14 @@
 import math
 import unittest
 
+
 # Создаём класс, от которого будут наследоваться все остальные фигуры
 class Shape:
     def area(self) -> float:
         """Метод для вычисления площади. Должен быть переопределен в дочерних классах"""
         pass
+
+
 
 # Класс круга, который наследуется от родительского Shape и для создания требует параметр - радиус
 class Circle(Shape):
@@ -16,6 +19,7 @@ class Circle(Shape):
         return math.pi * self.radius ** 2
 
 
+# Класс треугольника, с входными параметрами в виде длины сторон
 class Triangle(Shape):
     def __init__(self, a: float, b: float, c: float):
         if a + b <= c or a + c <= b or b + c <= a: # Проверка на неравенство треугольника. Сумма двух сторон треугольника всегда должна быть большей третей. Если это не выполняется - значит такой треугольник создать невозможно
@@ -32,6 +36,9 @@ class Triangle(Shape):
     def is_right_angled(self) -> bool:
         a, b, c = sorted([self.a, self.b, self.c])
         return a ** 2 + b ** 2 == c ** 2
+
+
+# --------------------------
 
 
 # Класс любого ПРАВИЛЬНОГО многоугольника. Для создания необходимо количество сторон и их длина
@@ -52,14 +59,17 @@ class Polygon(Shape):
         return first / second
 
 
-# ------
+# -----------
+
 
 # Функция принимает фигуру как класс, затем вызывает её заранее определенный метод вычисления площади
 def calculate_area(shape: Shape) -> float:  
     return shape.area()
 
-# ------
- 
+
+# -----------
+
+
 class TestShapes(unittest.TestCase):
     def test_circle_area(self):
         circle = Circle(5)
@@ -75,12 +85,17 @@ class TestShapes(unittest.TestCase):
 
 
 
-if __name__ == '__main__':
-    unittest.main()
 
-tri = Triangle(1, 2, 3)
+
+tri = Triangle(3, 4, 5)
 poly = Polygon(
     number_of_sides=6,
     length=10
 )
 print(poly.area()) # ~259.8076211353316
+
+
+
+
+if __name__ == '__main__':
+    unittest.main()
